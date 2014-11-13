@@ -9,6 +9,8 @@
 #import "SettingViewController.h"
 #import "UserLoginViewController.h"
 
+extern NSString *const kXMPPautoLogin;
+
 @interface SettingViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 
@@ -19,6 +21,7 @@
 
 - (IBAction)logoutAction:(id)sender {
     // remove data and switch to login view
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kXMPPautoLogin];
     [[UIApplication sharedApplication].keyWindow setRootViewController:[[UserLoginViewController alloc] init]];
 }
 
