@@ -12,6 +12,12 @@
 		20A36C6F1A1347D500717277 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20A36C6E1A1347D500717277 /* Images.xcassets */; };
 		20A36C721A1347D500717277 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A36C701A1347D500717277 /* LaunchScreen.xib */; };
 		20A36C7E1A1347D500717277 /* chatxmppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A36C7D1A1347D500717277 /* chatxmppTests.m */; };
+		20A36C8E1A1358BF00717277 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A36C8C1A1358BF00717277 /* FriendListViewController.m */; };
+		20A36C8F1A1358BF00717277 /* FriendListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A36C8D1A1358BF00717277 /* FriendListViewController.xib */; };
+		20A36C931A1358E900717277 /* ChatHisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A36C911A1358E900717277 /* ChatHisViewController.m */; };
+		20A36C941A1358E900717277 /* ChatHisViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A36C921A1358E900717277 /* ChatHisViewController.xib */; };
+		20A36C9B1A13593400717277 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A36C991A13593400717277 /* SettingViewController.m */; };
+		20A36C9C1A13593400717277 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A36C9A1A13593400717277 /* SettingViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,15 @@
 		20A36C7C1A1347D500717277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20A36C7D1A1347D500717277 /* chatxmppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = chatxmppTests.m; sourceTree = "<group>"; };
 		20A36C871A1347F700717277 /* chatxmpp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "chatxmpp-Prefix.pch"; sourceTree = "<group>"; };
+		20A36C8B1A1358BF00717277 /* FriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendListViewController.h; path = tab1/FriendListViewController.h; sourceTree = "<group>"; };
+		20A36C8C1A1358BF00717277 /* FriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendListViewController.m; path = tab1/FriendListViewController.m; sourceTree = "<group>"; };
+		20A36C8D1A1358BF00717277 /* FriendListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FriendListViewController.xib; path = tab1/FriendListViewController.xib; sourceTree = "<group>"; };
+		20A36C901A1358E900717277 /* ChatHisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatHisViewController.h; path = tab2/ChatHisViewController.h; sourceTree = "<group>"; };
+		20A36C911A1358E900717277 /* ChatHisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatHisViewController.m; path = tab2/ChatHisViewController.m; sourceTree = "<group>"; };
+		20A36C921A1358E900717277 /* ChatHisViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChatHisViewController.xib; path = tab2/ChatHisViewController.xib; sourceTree = "<group>"; };
+		20A36C981A13593400717277 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = set/SettingViewController.h; sourceTree = "<group>"; };
+		20A36C991A13593400717277 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = set/SettingViewController.m; sourceTree = "<group>"; };
+		20A36C9A1A13593400717277 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingViewController.xib; path = set/SettingViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +92,9 @@
 		20A36C601A1347D500717277 /* chatxmpp */ = {
 			isa = PBXGroup;
 			children = (
+				20A36C8A1A134F7600717277 /* Tab3(Setting) */,
+				20A36C891A134F6800717277 /* Tab2(Chat) */,
+				20A36C881A134F5F00717277 /* Tab1(Friend) */,
 				20A36C651A1347D500717277 /* AppDelegate.h */,
 				20A36C661A1347D500717277 /* AppDelegate.m */,
 				20A36C6E1A1347D500717277 /* Images.xcassets */,
@@ -111,6 +129,36 @@
 				20A36C7C1A1347D500717277 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		20A36C881A134F5F00717277 /* Tab1(Friend) */ = {
+			isa = PBXGroup;
+			children = (
+				20A36C8B1A1358BF00717277 /* FriendListViewController.h */,
+				20A36C8C1A1358BF00717277 /* FriendListViewController.m */,
+				20A36C8D1A1358BF00717277 /* FriendListViewController.xib */,
+			);
+			name = "Tab1(Friend)";
+			sourceTree = "<group>";
+		};
+		20A36C891A134F6800717277 /* Tab2(Chat) */ = {
+			isa = PBXGroup;
+			children = (
+				20A36C901A1358E900717277 /* ChatHisViewController.h */,
+				20A36C911A1358E900717277 /* ChatHisViewController.m */,
+				20A36C921A1358E900717277 /* ChatHisViewController.xib */,
+			);
+			name = "Tab2(Chat)";
+			sourceTree = "<group>";
+		};
+		20A36C8A1A134F7600717277 /* Tab3(Setting) */ = {
+			isa = PBXGroup;
+			children = (
+				20A36C981A13593400717277 /* SettingViewController.h */,
+				20A36C991A13593400717277 /* SettingViewController.m */,
+				20A36C9A1A13593400717277 /* SettingViewController.xib */,
+			);
+			name = "Tab3(Setting)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,7 +242,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				20A36C721A1347D500717277 /* LaunchScreen.xib in Resources */,
+				20A36C9C1A13593400717277 /* SettingViewController.xib in Resources */,
+				20A36C941A1358E900717277 /* ChatHisViewController.xib in Resources */,
 				20A36C6F1A1347D500717277 /* Images.xcassets in Resources */,
+				20A36C8F1A1358BF00717277 /* FriendListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +263,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20A36C8E1A1358BF00717277 /* FriendListViewController.m in Sources */,
+				20A36C931A1358E900717277 /* ChatHisViewController.m in Sources */,
 				20A36C671A1347D500717277 /* AppDelegate.m in Sources */,
 				20A36C641A1347D500717277 /* main.m in Sources */,
+				20A36C9B1A13593400717277 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
