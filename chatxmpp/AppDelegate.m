@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "UserLoginViewController.h"
+#import "MainTabBarViewController.h"
+
+extern NSString *const kXMPPautoLogin;
+
 
 @interface AppDelegate ()
 
@@ -19,10 +24,19 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UITabBarController *mainTabBarViewController = [[UITabBarController alloc] init];
     
-    self.window.rootViewController = mainTabBarViewController;
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:kXMPPautoLogin] boolValue]) {
+        self.window.rootViewController =[[MainTabBarViewController alloc] init];
+        
+    } else {
+        self.window.rootViewController =[[UserLoginViewController alloc] init];
+    }
+    
     [self.window makeKeyAndVisible];
+    
+    
+    
     
     return YES;
 }
