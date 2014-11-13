@@ -1,38 +1,30 @@
 //
-//  FriendListViewController.m
+//  UserLoginViewController.m
 //  chatxmpp
 //
-//  Created by kuanchih on 2014/11/12.
+//  Created by kuanchih on 2014/11/13.
 //  Copyright (c) 2014年 Jhihguan. All rights reserved.
 //
 
-#import "FriendListViewController.h"
 #import "UserLoginViewController.h"
+#import "MainTabBarViewController.h"
 
-extern NSString *const kXMPPautoLogin;
 
-@interface FriendListViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *friendTableView;
+@interface UserLoginViewController ()
 
 @end
 
-@implementation FriendListViewController
+@implementation UserLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+- (IBAction)loginAction:(id)sender {
     
-    self.extendedLayoutIncludesOpaqueBars = YES;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.title = @"Friend";
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    // change root view if login success
+    [[UIApplication sharedApplication].keyWindow setRootViewController:[[MainTabBarViewController alloc] init]];
+    
 }
 
 - (void)didReceiveMemoryWarning {

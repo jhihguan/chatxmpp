@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "UserLoginViewController.h"
 
 @interface SettingViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
@@ -15,11 +16,19 @@
 
 @implementation SettingViewController
 
+
+- (IBAction)logoutAction:(id)sender {
+    // remove data and switch to login view
+    [[UIApplication sharedApplication].keyWindow setRootViewController:[[UserLoginViewController alloc] init]];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Setting";
     self.logoutButton.backgroundColor = [UIColor redColor];
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
 }
 

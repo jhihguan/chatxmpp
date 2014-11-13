@@ -7,9 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "FriendListViewController.h"
-#import "ChatHisViewController.h"
-#import "SettingViewController.h"
+#import "UserLoginViewController.h"
+#import "MainTabBarViewController.h"
+
+extern NSString *const kXMPPautoLogin;
+
 
 @interface AppDelegate ()
 
@@ -22,26 +24,19 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UITabBarController *mainTabBarViewController = [[UITabBarController alloc] init];
     
-    FriendListViewController *friendListViewControoler = [[FriendListViewController alloc] init];
-    UINavigationController *navBar1 = [[UINavigationController alloc] initWithRootViewController:friendListViewControoler];
-    navBar1.title = @"Friend";
     
-    ChatHisViewController *chatHisViewController = [[ChatHisViewController alloc] init];
-    UINavigationController *navBar2 = [[UINavigationController alloc] initWithRootViewController:chatHisViewController];
-    navBar2.title = @"Chat";
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:kXMPPautoLogin] boolValue]) {
+        self.window.rootViewController =[[MainTabBarViewController alloc] init];
+        
+    } else {
+        self.window.rootViewController =[[UserLoginViewController alloc] init];
+    }
     
-    SettingViewController *settingViewController = [[SettingViewController alloc] init];
-    UINavigationController *navBar3 = [[UINavigationController alloc] initWithRootViewController:settingViewController];
-    navBar3.title = @"Setting";
-    
-    NSArray *tabViewController = [NSArray arrayWithObjects:navBar1, navBar2, navBar3, nil];
-    
-    mainTabBarViewController.viewControllers = tabViewController;
-    
-    self.window.rootViewController = mainTabBarViewController;
     [self.window makeKeyAndVisible];
+    
+    
+    
     
     return YES;
 }

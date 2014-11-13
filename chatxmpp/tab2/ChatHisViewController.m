@@ -9,6 +9,7 @@
 #import "ChatHisViewController.h"
 
 @interface ChatHisViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 
 @end
 
@@ -17,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"Chat";
 }
 
