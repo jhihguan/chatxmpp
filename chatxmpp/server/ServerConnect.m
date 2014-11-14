@@ -134,6 +134,7 @@ extern NSString *const kXMPPmyServer;
     
 }
 
+
 #pragma mark - roster storage object
 
 - (NSManagedObjectContext *)managedObjectContext_roster
@@ -153,6 +154,8 @@ extern NSString *const kXMPPmyServer;
 
 - (void)xmppStreamConnectDidTimeout:(XMPPStream *)sender {
     NSLog(@"connection timeout");
+    [self.delegate serverConnectionTimeout];
+    
 }
 
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {

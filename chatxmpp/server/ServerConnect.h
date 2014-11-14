@@ -48,4 +48,7 @@
 - (void)serverDidFinishAuthenticate;
 - (void)serverErrorAuthenticate;
 
+@optional
+- (void)serverConnectionTimeout;
+
 @end
