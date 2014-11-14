@@ -8,12 +8,13 @@
 
 #import "SettingViewController.h"
 #import "UserLoginViewController.h"
+#import "ServerConnect.h"
 
 extern NSString *const kXMPPautoLogin;
 
 @interface SettingViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
-
+@property (strong, nonatomic) ServerConnect *serverConnect;
 @end
 
 @implementation SettingViewController
@@ -21,7 +22,7 @@ extern NSString *const kXMPPautoLogin;
 
 - (IBAction)logoutAction:(id)sender {
     // remove data and switch to login view
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kXMPPautoLogin];
+    [self.serverConnect shutdownStream];
     [[UIApplication sharedApplication].keyWindow setRootViewController:[[UserLoginViewController alloc] init]];
 }
 
@@ -32,6 +33,8 @@ extern NSString *const kXMPPautoLogin;
     self.logoutButton.backgroundColor = [UIColor redColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.serverConnect = [ServerConnect sharedConnect];
     
 }
 

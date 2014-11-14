@@ -11,6 +11,7 @@
 extern NSString *const kXMPPmyJID;
 extern NSString *const kXMPPmyPassword;
 extern NSString *const kXMPPmyServer;
+extern NSString *const kXMPPautoLogin;
 
 @interface ServerConnect ()<XMPPStreamDelegate>
 
@@ -114,7 +115,8 @@ extern NSString *const kXMPPmyServer;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setValue:@"" forKey:kXMPPmyJID];
     [userDefaults setValue:@"" forKey:kXMPPmyPassword];
-    [userDefaults setBool:NO forKey:@"login"];
+    [userDefaults setValue:@"" forKey:kXMPPmyServer];
+    [userDefaults setBool:NO forKey:kXMPPautoLogin];
 }
 
 - (void)shutdownStream {
@@ -145,7 +147,7 @@ extern NSString *const kXMPPmyServer;
 #pragma mark - stream delegate
 
 - (void)xmppStreamWillConnect:(XMPPStream *)sender {
-    NSLog(@"will connect");
+    NSLog(@"will connect to server");
 }
 
 - (void)xmppStream:(XMPPStream *)sender socketDidConnect:(GCDAsyncSocket *)socket {
