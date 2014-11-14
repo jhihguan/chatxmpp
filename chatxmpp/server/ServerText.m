@@ -11,7 +11,7 @@
 NSString *const kXMPPautoLogin = @"kXMPPautoLogin";
 NSString *const kXMPPmyJID = @"kXMPPmyJID";
 NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
-NSString *const kXMPPmyServer = @"10.211.55.5";
+NSString *const kXMPPmyServer = @"kXMPPmyServer";
 
 @implementation ServerText
 

@@ -168,6 +168,8 @@
 		20D565CF1A1488CD0044C0C2 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D565CE1A1488CD0044C0C2 /* libresolv.dylib */; };
 		20D565D11A1488D70044C0C2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D565D01A1488D70044C0C2 /* Security.framework */; };
 		20D565D31A1488E50044C0C2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D565D21A1488E50044C0C2 /* CFNetwork.framework */; };
+		20D565D61A148EAC0044C0C2 /* ServerConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D565D51A148EAC0044C0C2 /* ServerConnect.m */; };
+		20D565D91A15A8AA0044C0C2 /* ServerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D565D81A15A8AA0044C0C2 /* ServerUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -501,6 +503,10 @@
 		20D565CE1A1488CD0044C0C2 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		20D565D01A1488D70044C0C2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		20D565D21A1488E50044C0C2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		20D565D41A148EAC0044C0C2 /* ServerConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerConnect.h; path = server/ServerConnect.h; sourceTree = "<group>"; };
+		20D565D51A148EAC0044C0C2 /* ServerConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerConnect.m; path = server/ServerConnect.m; sourceTree = "<group>"; };
+		20D565D71A15A8AA0044C0C2 /* ServerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerUtil.h; path = server/ServerUtil.h; sourceTree = "<group>"; };
+		20D565D81A15A8AA0044C0C2 /* ServerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerUtil.m; path = server/ServerUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -629,8 +635,12 @@
 		20D563C51A14482F0044C0C2 /* Server */ = {
 			isa = PBXGroup;
 			children = (
+				20D565D41A148EAC0044C0C2 /* ServerConnect.h */,
+				20D565D51A148EAC0044C0C2 /* ServerConnect.m */,
 				20D563C61A1448B70044C0C2 /* ServerText.h */,
 				20D563C71A1448B70044C0C2 /* ServerText.m */,
+				20D565D71A15A8AA0044C0C2 /* ServerUtil.h */,
+				20D565D81A15A8AA0044C0C2 /* ServerUtil.m */,
 			);
 			name = Server;
 			sourceTree = "<group>";
@@ -1637,6 +1647,7 @@
 				20D565BC1A1487270044C0C2 /* XMPPIDTracker.m in Sources */,
 				20D5659C1A1487270044C0C2 /* XMPPvCardAvatarModule.m in Sources */,
 				20D565A01A1487270044C0C2 /* XMPPMessageDeliveryReceipts.m in Sources */,
+				20D565D61A148EAC0044C0C2 /* ServerConnect.m in Sources */,
 				20D565871A1487270044C0C2 /* XMPPPubSub.m in Sources */,
 				20D565781A1487270044C0C2 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				20D565B11A1487270044C0C2 /* XMPPMessage+XEP_0333.m in Sources */,
@@ -1663,6 +1674,7 @@
 				20D5653E1A1487270044C0C2 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				20D5658A1A1487270044C0C2 /* XMPPMessage+XEP_0066.m in Sources */,
 				20D565591A1487270044C0C2 /* XMPPReconnect.m in Sources */,
+				20D565D91A15A8AA0044C0C2 /* ServerUtil.m in Sources */,
 				20D5653A1A1487270044C0C2 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				20D565891A1487270044C0C2 /* XMPPIQ+XEP_0066.m in Sources */,
 				20D5653B1A1487270044C0C2 /* XMPPDigestMD5Authentication.m in Sources */,

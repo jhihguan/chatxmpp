@@ -21,14 +21,12 @@ extern NSString *const kXMPPautoLogin;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    
+    // check login status to show different view
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:kXMPPautoLogin] boolValue]) {
         self.window.rootViewController =[[MainTabBarViewController alloc] init];
-        
     } else {
         self.window.rootViewController =[[UserLoginViewController alloc] init];
     }
