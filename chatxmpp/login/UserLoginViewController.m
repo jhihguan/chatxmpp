@@ -10,6 +10,7 @@
 #import "MainTabBarViewController.h"
 #import "ServerConnect.h"
 #import "ServerUtil.h"
+#import <SVProgressHUD.h>
 
 
 extern NSString *const kXMPPautoLogin;
@@ -23,7 +24,6 @@ extern NSString *const kXMPPmyServer;
 @property (weak, nonatomic) IBOutlet UITextField *serverTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) ServerConnect *serverConnect;
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -39,25 +39,30 @@ extern NSString *const kXMPPmyServer;
 }
 
 - (void)serverDidFinishAuthenticate {
-    [self.activityIndicator stopAnimating];
+    [SVProgressHUD dismiss];
     // change root view if login success
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kXMPPautoLogin];
     [[UIApplication sharedApplication].keyWindow setRootViewController:[[MainTabBarViewController alloc] init]];
 }
 
 - (void)serverErrorAuthenticate {
-    [self.activityIndicator stopAnimating];
-    NSLog(@"authenticate error");
+    [SVProgressHUD dismiss];
+    [self.serverConnect disconnect];
+    self.loginButton.enabled = YES;
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please check your account or password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
 }
 
 - (void)serverConnectionTimeout {
-    [self.activityIndicator stopAnimating];
+    [SVProgressHUD dismiss];
+    self.loginButton.enabled = YES;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Response" message:@"Please check your network or server address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 
 - (IBAction)loginAction:(id)sender {
     
+    self.loginButton.enabled = NO;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSString *account = self.accountTextField.text;
@@ -91,7 +96,7 @@ extern NSString *const kXMPPmyServer;
             NSLog(@"connect error");
             [self serverConnectionTimeout];
         } else {
-            [self.activityIndicator startAnimating];
+            [SVProgressHUD show];
         }
     }
     
@@ -100,20 +105,6 @@ extern NSString *const kXMPPmyServer;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (UIActivityIndicatorView *)activityIndicator {
-    if (_activityIndicator == nil) {
-        _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _activityIndicator.center=self.view.center;
-        
-//        [activityView startAnimating];
-//        self.activityView = activityView;
-//        _activityIndicator.transform = CGAffineTransformMakeScale(0.75, 0.75);
-        _activityIndicator.hidesWhenStopped = YES;
-        [self.view addSubview:_activityIndicator];
-    }
-    return _activityIndicator;
 }
 
 /*
