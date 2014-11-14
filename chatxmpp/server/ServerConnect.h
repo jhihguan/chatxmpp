@@ -27,6 +27,7 @@
 + (ServerConnect *) sharedConnect;
 
 @property (nonatomic, strong) id<ServerConnectProtocol> delegate;
+@property (nonatomic) BOOL isXmppConnected;
 
 // object
 
@@ -46,9 +47,9 @@
 @protocol ServerConnectProtocol <NSObject>
 
 - (void)serverDidFinishAuthenticate;
-- (void)serverErrorAuthenticate;
 
 @optional
 - (void)serverConnectionTimeout;
+- (void)serverErrorAuthenticate;
 
 @end

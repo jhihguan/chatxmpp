@@ -16,7 +16,6 @@ extern NSString *const kXMPPautoLogin;
 @interface ServerConnect ()<XMPPStreamDelegate>
 
 @property (nonatomic, strong) NSString *password;
-@property (nonatomic) BOOL isXmppConnected;
 
 @end
 
@@ -97,7 +96,6 @@ extern NSString *const kXMPPautoLogin;
         
         return NO;
     }
-    
     return YES;
 }
 
@@ -105,9 +103,11 @@ extern NSString *const kXMPPautoLogin;
     XMPPPresence *presence = [XMPPPresence presence];
     [_xmppStream sendElement:presence];
     [self.delegate serverDidFinishAuthenticate];
+    _isXmppConnected = YES;
 }
 
 - (void)disconnect {
+    self.isXmppConnected = NO;
     [_xmppStream disconnect];
 }
 
@@ -162,7 +162,6 @@ extern NSString *const kXMPPautoLogin;
 
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {
     NSLog(@"it's connect, start login with password");
-    _isXmppConnected = YES;
     NSError *error = nil;
 //    NSLog(@"%@",_password);
     if (![_xmppStream authenticateWithPassword:_password error:&error]) {

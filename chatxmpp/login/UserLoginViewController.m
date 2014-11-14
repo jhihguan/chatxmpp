@@ -62,7 +62,6 @@ extern NSString *const kXMPPmyServer;
 
 - (IBAction)loginAction:(id)sender {
     
-    self.loginButton.enabled = NO;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSString *account = self.accountTextField.text;
@@ -87,7 +86,7 @@ extern NSString *const kXMPPmyServer;
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Requirement" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alertView show];
     } else {
-    
+        self.loginButton.enabled = NO;
         [userDefaults setValue:self.accountTextField.text forKey:kXMPPmyJID];
         [userDefaults setValue:self.passwordTextField.text forKey:kXMPPmyPassword];
         [userDefaults setValue:self.serverTextField.text forKey:kXMPPmyServer];
