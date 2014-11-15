@@ -170,7 +170,8 @@
 		20D565D31A1488E50044C0C2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D565D21A1488E50044C0C2 /* CFNetwork.framework */; };
 		20D565D61A148EAC0044C0C2 /* ServerConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D565D51A148EAC0044C0C2 /* ServerConnect.m */; };
 		20D565D91A15A8AA0044C0C2 /* ServerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D565D81A15A8AA0044C0C2 /* ServerUtil.m */; };
-		20D565DC1A15F05F0044C0C2 /* ServerRosterFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D565DB1A15F05F0044C0C2 /* ServerRosterFetch.m */; };
+		6A24DBD11A177ED4002088FD /* ServerRosterFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A24DBD01A177ED4002088FD /* ServerRosterFetch.m */; };
+		6A24DBD41A177F2A002088FD /* ServerFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A24DBD31A177F2A002088FD /* ServerFriend.m */; };
 		6F756ADD7CBF81BE10BDC0C0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38648D9393577C99486731E9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -509,10 +510,12 @@
 		20D565D51A148EAC0044C0C2 /* ServerConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerConnect.m; path = server/ServerConnect.m; sourceTree = "<group>"; };
 		20D565D71A15A8AA0044C0C2 /* ServerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerUtil.h; path = server/ServerUtil.h; sourceTree = "<group>"; };
 		20D565D81A15A8AA0044C0C2 /* ServerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerUtil.m; path = server/ServerUtil.m; sourceTree = "<group>"; };
-		20D565DA1A15F05F0044C0C2 /* ServerRosterFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerRosterFetch.h; path = server/ServerRosterFetch.h; sourceTree = "<group>"; };
-		20D565DB1A15F05F0044C0C2 /* ServerRosterFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerRosterFetch.m; path = server/ServerRosterFetch.m; sourceTree = "<group>"; };
 		38648D9393577C99486731E9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51E5C7C55E2F242977B7E8A9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6A24DBCF1A177ED4002088FD /* ServerRosterFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerRosterFetch.h; path = server/ServerRosterFetch.h; sourceTree = "<group>"; };
+		6A24DBD01A177ED4002088FD /* ServerRosterFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerRosterFetch.m; path = server/ServerRosterFetch.m; sourceTree = "<group>"; };
+		6A24DBD21A177F2A002088FD /* ServerFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerFriend.h; path = server/ServerFriend.h; sourceTree = "<group>"; };
+		6A24DBD31A177F2A002088FD /* ServerFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerFriend.m; path = server/ServerFriend.m; sourceTree = "<group>"; };
 		C7BF9B65DBDDF94F92A3AC08 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -645,14 +648,16 @@
 		20D563C51A14482F0044C0C2 /* Server */ = {
 			isa = PBXGroup;
 			children = (
-				20D565DA1A15F05F0044C0C2 /* ServerRosterFetch.h */,
-				20D565DB1A15F05F0044C0C2 /* ServerRosterFetch.m */,
+				6A24DBCF1A177ED4002088FD /* ServerRosterFetch.h */,
+				6A24DBD01A177ED4002088FD /* ServerRosterFetch.m */,
 				20D565D41A148EAC0044C0C2 /* ServerConnect.h */,
 				20D565D51A148EAC0044C0C2 /* ServerConnect.m */,
 				20D563C61A1448B70044C0C2 /* ServerText.h */,
 				20D563C71A1448B70044C0C2 /* ServerText.m */,
 				20D565D71A15A8AA0044C0C2 /* ServerUtil.h */,
 				20D565D81A15A8AA0044C0C2 /* ServerUtil.m */,
+				6A24DBD21A177F2A002088FD /* ServerFriend.h */,
+				6A24DBD31A177F2A002088FD /* ServerFriend.m */,
 			);
 			name = Server;
 			sourceTree = "<group>";
@@ -1787,6 +1792,7 @@
 				20D5654A1A1487270044C0C2 /* DDDispatchQueueLogFormatter.m in Sources */,
 				20D565A91A1487270044C0C2 /* NSXMLElement+XEP_0203.m in Sources */,
 				20D5655E1A1487270044C0C2 /* XMPPUserCoreDataStorageObject.m in Sources */,
+				6A24DBD41A177F2A002088FD /* ServerFriend.m in Sources */,
 				20D565A41A1487270044C0C2 /* XMPPStreamManagement.m in Sources */,
 				20D5657D1A1487270044C0C2 /* XMPPvCardTempAdr.m in Sources */,
 				20A36C9B1A13593400717277 /* SettingViewController.m in Sources */,
@@ -1828,7 +1834,7 @@
 				20D565B01A1487270044C0C2 /* XMPPMessage+XEP_0308.m in Sources */,
 				20D565841A1487270044C0C2 /* NSXMLElement+XEP_0059.m in Sources */,
 				20D565BE1A1487270044C0C2 /* XMPPStringPrep.m in Sources */,
-				20D565DC1A15F05F0044C0C2 /* ServerRosterFetch.m in Sources */,
+				6A24DBD11A177ED4002088FD /* ServerRosterFetch.m in Sources */,
 				20D565A11A1487270044C0C2 /* XMPPBlocking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

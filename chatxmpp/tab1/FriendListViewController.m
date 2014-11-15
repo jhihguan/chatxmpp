@@ -10,13 +10,16 @@
 #import "UserLoginViewController.h"
 #import "ServerConnect.h"
 #import "ServerRosterFetch.h"
+#import "ServerFriend.h"
 
 extern NSString *const kXMPPautoLogin;
+NSInteger const ADD_FRIEND_VIEW_TAG = 101;
 
-@interface FriendListViewController ()<ServerConnectProtocol, ServerRosterProtocol, UITableViewDataSource, UITableViewDelegate>
+@interface FriendListViewController ()<ServerConnectProtocol, ServerRosterProtocol, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *friendTableView;
 @property (strong, nonatomic) ServerConnect *serverConnect;
 @property (strong, nonatomic) ServerRosterFetch *serverRoster;
+@property (strong, nonatomic) ServerFriend *serverFriend;
 @property (strong, nonatomic) NSMutableArray *friendArray;
 
 @end
@@ -33,6 +36,18 @@ extern NSString *const kXMPPautoLogin;
     self.friendArray = [[NSMutableArray alloc] init];
     
     [self setupServer];
+    
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addFriendAction)];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+}
+
+#pragma mark - action
+
+- (void)addFriendAction {
+    UIAlertView *addFriendAlertView = [[UIAlertView alloc] initWithTitle:@"New Friend" message:@"\nEnter Friend ID" delegate:self cancelButtonTitle:@"Add" otherButtonTitles:@"Cancel", nil];
+    addFriendAlertView.tag = ADD_FRIEND_VIEW_TAG;
+    [addFriendAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [addFriendAlertView show];
 }
 
 #pragma mark - setup
@@ -46,6 +61,7 @@ extern NSString *const kXMPPautoLogin;
     
     if (self.serverConnect.isXmppConnected) {
         [self.serverRoster setupFetchRosterController];
+        self.serverFriend = [[ServerFriend alloc] init];
     } else {
         [self.serverConnect setupStream];
         [self.serverConnect connect];
@@ -58,6 +74,7 @@ extern NSString *const kXMPPautoLogin;
     NSLog(@"is connecting to server");
     // start fetching friend
     [self.serverRoster setupFetchRosterController];
+    self.serverFriend = [[ServerFriend alloc] init];
 }
 
 - (void)serverDidFinishFetchRosters:(NSArray *)users sections:(NSArray *)sections {
@@ -66,7 +83,33 @@ extern NSString *const kXMPPautoLogin;
     [self.friendTableView reloadData];
 }
 
+#pragma mark - alertview delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == ADD_FRIEND_VIEW_TAG) {
+        switch (buttonIndex) {
+            case 0: {
+                NSString *userId = [alertView textFieldAtIndex:0].text;
+                if ([userId isEqualToString:@""]) {
+                    [[[UIAlertView alloc] initWithTitle:@"Empty" message:@"User ID Can't be blank" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                } else {
+                    NSLog(@"friend id %@", userId);
+                    [self.serverFriend addNewFriend:userId];
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
+    
+}
+
 #pragma mark - tableview delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *tableViewCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];

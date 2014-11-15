@@ -46,9 +46,8 @@
 
 @protocol ServerConnectProtocol <NSObject>
 
-- (void)serverDidFinishAuthenticate;
-
 @optional
+- (void)serverDidFinishAuthenticate;
 - (void)serverConnectionTimeout;
 - (void)serverErrorAuthenticate;
 
