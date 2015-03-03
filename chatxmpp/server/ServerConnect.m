@@ -38,9 +38,9 @@ extern NSString *const kXMPPautoLogin;
     _xmppRoster.autoFetchRoster = YES;
     _xmppRoster.autoAcceptKnownPresenceSubscriptionRequests = YES;
     
-    _xmppvCardStorage = [XMPPvCardCoreDataStorage sharedInstance];
-    _xmppvCardTempModule = [[XMPPvCardTempModule alloc] initWithvCardStorage:_xmppvCardStorage];
-    _xmppvCardAvatarModule = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:_xmppvCardTempModule];
+//    _xmppvCardStorage = [XMPPvCardCoreDataStorage sharedInstance];
+//    _xmppvCardTempModule = [[XMPPvCardTempModule alloc] initWithvCardStorage:_xmppvCardStorage];
+//    _xmppvCardAvatarModule = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:_xmppvCardTempModule];
     
     _xmppCapabilitiesStorage = [XMPPCapabilitiesCoreDataStorage sharedInstance];
     _xmppCapabilities = [[XMPPCapabilities alloc] initWithCapabilitiesStorage:_xmppCapabilitiesStorage];
@@ -50,8 +50,8 @@ extern NSString *const kXMPPautoLogin;
     
     [_xmppReconnect         activate:_xmppStream];
     [_xmppRoster            activate:_xmppStream];
-    [_xmppvCardTempModule   activate:_xmppStream];
-    [_xmppvCardAvatarModule activate:_xmppStream];
+//    [_xmppvCardTempModule   activate:_xmppStream];
+//    [_xmppvCardAvatarModule activate:_xmppStream];
     [_xmppCapabilities      activate:_xmppStream];
     
     [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -181,6 +181,24 @@ extern NSString *const kXMPPautoLogin;
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
     NSLog(@"error %@", [error stringValue]);
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
+    if ([message isChatMessageWithBody]) {
+        NSString *msg = [[message elementForName:@"body"] stringValue];
+        NSString *from = [[message attributeForName:@"from"] stringValue];
+        from = [[from componentsSeparatedByString:@"/"] objectAtIndex:0];
+        if ([self.msdelegate respondsToSelector:@selector(serverDidReceiveMessage:fromUser:)]) {
+            [self.msdelegate serverDidReceiveMessage:msg fromUser:from];
+        }
+        
+        if ([self.talkJID isEqualToString:from]) {
+            NSLog(@"%@", message);
+            if ([self.msdelegate respondsToSelector:@selector(serverDidReceiveMessageFromTalkUser:)]) {
+                [self.msdelegate serverDidReceiveMessageFromTalkUser:msg];
+            }
+        }
+    }
 }
 
 #pragma mark - singleton object

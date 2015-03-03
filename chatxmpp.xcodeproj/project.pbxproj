@@ -18,7 +18,7 @@
 		20A36C941A1358E900717277 /* ChatHisViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A36C921A1358E900717277 /* ChatHisViewController.xib */; };
 		20A36C9B1A13593400717277 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A36C991A13593400717277 /* SettingViewController.m */; };
 		20A36C9C1A13593400717277 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A36C9A1A13593400717277 /* SettingViewController.xib */; };
-		20D563C81A1448B70044C0C2 /* ServerText.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D563C71A1448B70044C0C2 /* ServerText.m */; };
+		20D563C81A1448B70044C0C2 /* ServerMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D563C71A1448B70044C0C2 /* ServerMessage.m */; };
 		20D563CD1A144A9B0044C0C2 /* UserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D563CB1A144A9B0044C0C2 /* UserLoginViewController.m */; };
 		20D563CE1A144A9B0044C0C2 /* UserLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D563CC1A144A9B0044C0C2 /* UserLoginViewController.xib */; };
 		20D563D11A145C390044C0C2 /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D563D01A145C390044C0C2 /* MainTabBarViewController.m */; };
@@ -172,6 +172,9 @@
 		20D565D91A15A8AA0044C0C2 /* ServerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D565D81A15A8AA0044C0C2 /* ServerUtil.m */; };
 		6A24DBD11A177ED4002088FD /* ServerRosterFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A24DBD01A177ED4002088FD /* ServerRosterFetch.m */; };
 		6A24DBD41A177F2A002088FD /* ServerFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A24DBD31A177F2A002088FD /* ServerFriend.m */; };
+		6A24DBD81A178CD2002088FD /* FriendDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A24DBD61A178CD2002088FD /* FriendDetailViewController.m */; };
+		6A24DBD91A178CD2002088FD /* FriendDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A24DBD71A178CD2002088FD /* FriendDetailViewController.xib */; };
+		6AC365661AA45A2F0069B897 /* MessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC365651AA45A2F0069B897 /* MessageData.m */; };
 		6F756ADD7CBF81BE10BDC0C0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38648D9393577C99486731E9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -206,8 +209,8 @@
 		20A36C981A13593400717277 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = set/SettingViewController.h; sourceTree = "<group>"; };
 		20A36C991A13593400717277 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = set/SettingViewController.m; sourceTree = "<group>"; };
 		20A36C9A1A13593400717277 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingViewController.xib; path = set/SettingViewController.xib; sourceTree = "<group>"; };
-		20D563C61A1448B70044C0C2 /* ServerText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerText.h; path = server/ServerText.h; sourceTree = "<group>"; };
-		20D563C71A1448B70044C0C2 /* ServerText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerText.m; path = server/ServerText.m; sourceTree = "<group>"; };
+		20D563C61A1448B70044C0C2 /* ServerMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerMessage.h; path = server/ServerMessage.h; sourceTree = "<group>"; };
+		20D563C71A1448B70044C0C2 /* ServerMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerMessage.m; path = server/ServerMessage.m; sourceTree = "<group>"; };
 		20D563CA1A144A9B0044C0C2 /* UserLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserLoginViewController.h; path = login/UserLoginViewController.h; sourceTree = "<group>"; };
 		20D563CB1A144A9B0044C0C2 /* UserLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserLoginViewController.m; path = login/UserLoginViewController.m; sourceTree = "<group>"; };
 		20D563CC1A144A9B0044C0C2 /* UserLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UserLoginViewController.xib; path = login/UserLoginViewController.xib; sourceTree = "<group>"; };
@@ -516,6 +519,11 @@
 		6A24DBD01A177ED4002088FD /* ServerRosterFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerRosterFetch.m; path = server/ServerRosterFetch.m; sourceTree = "<group>"; };
 		6A24DBD21A177F2A002088FD /* ServerFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerFriend.h; path = server/ServerFriend.h; sourceTree = "<group>"; };
 		6A24DBD31A177F2A002088FD /* ServerFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerFriend.m; path = server/ServerFriend.m; sourceTree = "<group>"; };
+		6A24DBD51A178CD2002088FD /* FriendDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendDetailViewController.h; path = tab1/FriendDetailViewController.h; sourceTree = "<group>"; };
+		6A24DBD61A178CD2002088FD /* FriendDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendDetailViewController.m; path = tab1/FriendDetailViewController.m; sourceTree = "<group>"; };
+		6A24DBD71A178CD2002088FD /* FriendDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FriendDetailViewController.xib; path = tab1/FriendDetailViewController.xib; sourceTree = "<group>"; };
+		6AC365641AA45A2F0069B897 /* MessageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageData.h; path = data/MessageData.h; sourceTree = "<group>"; };
+		6AC365651AA45A2F0069B897 /* MessageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageData.m; path = data/MessageData.m; sourceTree = "<group>"; };
 		C7BF9B65DBDDF94F92A3AC08 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -578,6 +586,7 @@
 				20A36C881A134F5F00717277 /* Tab1(Friend) */,
 				20D563C91A144A6E0044C0C2 /* Login */,
 				20D563C51A14482F0044C0C2 /* Server */,
+				6AC365671AA45AA90069B897 /* Data */,
 				20A36C651A1347D500717277 /* AppDelegate.h */,
 				20A36C661A1347D500717277 /* AppDelegate.m */,
 				20A36C6E1A1347D500717277 /* Images.xcassets */,
@@ -621,6 +630,9 @@
 				20A36C8B1A1358BF00717277 /* FriendListViewController.h */,
 				20A36C8C1A1358BF00717277 /* FriendListViewController.m */,
 				20A36C8D1A1358BF00717277 /* FriendListViewController.xib */,
+				6A24DBD51A178CD2002088FD /* FriendDetailViewController.h */,
+				6A24DBD61A178CD2002088FD /* FriendDetailViewController.m */,
+				6A24DBD71A178CD2002088FD /* FriendDetailViewController.xib */,
 			);
 			name = "Tab1(Friend)";
 			sourceTree = "<group>";
@@ -652,8 +664,8 @@
 				6A24DBD01A177ED4002088FD /* ServerRosterFetch.m */,
 				20D565D41A148EAC0044C0C2 /* ServerConnect.h */,
 				20D565D51A148EAC0044C0C2 /* ServerConnect.m */,
-				20D563C61A1448B70044C0C2 /* ServerText.h */,
-				20D563C71A1448B70044C0C2 /* ServerText.m */,
+				20D563C61A1448B70044C0C2 /* ServerMessage.h */,
+				20D563C71A1448B70044C0C2 /* ServerMessage.m */,
 				20D565D71A15A8AA0044C0C2 /* ServerUtil.h */,
 				20D565D81A15A8AA0044C0C2 /* ServerUtil.m */,
 				6A24DBD21A177F2A002088FD /* ServerFriend.h */,
@@ -1542,6 +1554,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6AC365671AA45AA90069B897 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6AC365641AA45A2F0069B897 /* MessageData.h */,
+				6AC365651AA45A2F0069B897 /* MessageData.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		E6AD52B04EC1DB74DC70AA1E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1640,6 +1661,7 @@
 				20A36C6F1A1347D500717277 /* Images.xcassets in Resources */,
 				20D5654C1A1487270044C0C2 /* README.txt in Resources */,
 				20A36C8F1A1358BF00717277 /* FriendListViewController.xib in Resources */,
+				6A24DBD91A178CD2002088FD /* FriendDetailViewController.xib in Resources */,
 				20D565B71A1487270044C0C2 /* build-libidn.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1742,6 +1764,7 @@
 				20D563CD1A144A9B0044C0C2 /* UserLoginViewController.m in Sources */,
 				20D5653E1A1487270044C0C2 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				20D5658A1A1487270044C0C2 /* XMPPMessage+XEP_0066.m in Sources */,
+				6A24DBD81A178CD2002088FD /* FriendDetailViewController.m in Sources */,
 				20D565591A1487270044C0C2 /* XMPPReconnect.m in Sources */,
 				20D565D91A15A8AA0044C0C2 /* ServerUtil.m in Sources */,
 				20D5653A1A1487270044C0C2 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
@@ -1765,6 +1788,7 @@
 				20D565501A1487270044C0C2 /* XMPPMessage.m in Sources */,
 				20D565941A1487270044C0C2 /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				20D5653F1A1487270044C0C2 /* XMPPXOAuth2Google.m in Sources */,
+				6AC365661AA45A2F0069B897 /* MessageData.m in Sources */,
 				20D565411A1487270044C0C2 /* NSNumber+XMPP.m in Sources */,
 				20D5655C1A1487270044C0C2 /* XMPPRoster.xcdatamodel in Sources */,
 				20D5659A1A1487270044C0C2 /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
@@ -1829,7 +1853,7 @@
 				20D565401A1487270044C0C2 /* NSData+XMPP.m in Sources */,
 				20D565651A1487270044C0C2 /* XMPPJabberRPCModule.m in Sources */,
 				20D565421A1487270044C0C2 /* NSXMLElement+XMPP.m in Sources */,
-				20D563C81A1448B70044C0C2 /* ServerText.m in Sources */,
+				20D563C81A1448B70044C0C2 /* ServerMessage.m in Sources */,
 				20D565AF1A1487270044C0C2 /* NSXMLElement+XEP_0297.m in Sources */,
 				20D565B01A1487270044C0C2 /* XMPPMessage+XEP_0308.m in Sources */,
 				20D565841A1487270044C0C2 /* NSXMLElement+XEP_0059.m in Sources */,

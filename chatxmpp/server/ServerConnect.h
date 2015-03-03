@@ -14,6 +14,7 @@
 //#import "XMPPReconnect.h"
 
 @protocol ServerConnectProtocol;
+@protocol ServerMessageProtocol;
 @interface ServerConnect : NSObject
 
 - (void)setupStream;
@@ -27,7 +28,9 @@
 + (ServerConnect *) sharedConnect;
 
 @property (nonatomic, strong) id<ServerConnectProtocol> delegate;
+@property (nonatomic, strong) id<ServerMessageProtocol> msdelegate;
 @property (nonatomic) BOOL isXmppConnected;
+@property (nonatomic, strong) NSString *talkJID;
 
 // object
 
@@ -50,5 +53,13 @@
 - (void)serverDidFinishAuthenticate;
 - (void)serverConnectionTimeout;
 - (void)serverErrorAuthenticate;
+
+@end
+
+@protocol ServerMessageProtocol <NSObject>
+
+@optional
+- (void)serverDidReceiveMessage:(NSString *)message fromUser:(NSString *)user;
+- (void)serverDidReceiveMessageFromTalkUser:(NSString *)message;
 
 @end

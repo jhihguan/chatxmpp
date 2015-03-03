@@ -1,10 +1,17 @@
 PODS:
-  - SVProgressHUD (HEAD based on 1.0)
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
+  - SVProgressHUD (HEAD based on 1.1.2)
 
 DEPENDENCIES:
+  - FMDB
   - SVProgressHUD (HEAD)
 
 SPEC CHECKSUMS:
-  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
+  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.35.0

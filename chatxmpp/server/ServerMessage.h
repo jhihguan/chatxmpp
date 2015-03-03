@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ServerText : NSObject
+@interface ServerMessage : NSObject
 
 @end

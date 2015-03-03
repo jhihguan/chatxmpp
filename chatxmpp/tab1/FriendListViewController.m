@@ -11,11 +11,12 @@
 #import "ServerConnect.h"
 #import "ServerRosterFetch.h"
 #import "ServerFriend.h"
+#import "FriendDetailViewController.h"
 
 extern NSString *const kXMPPautoLogin;
 NSInteger const ADD_FRIEND_VIEW_TAG = 101;
 
-@interface FriendListViewController ()<ServerConnectProtocol, ServerRosterProtocol, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface FriendListViewController ()<ServerConnectProtocol, ServerRosterProtocol, ServerMessageProtocol,UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *friendTableView;
 @property (strong, nonatomic) ServerConnect *serverConnect;
 @property (strong, nonatomic) ServerRosterFetch *serverRoster;
@@ -62,6 +63,7 @@ NSInteger const ADD_FRIEND_VIEW_TAG = 101;
     if (self.serverConnect.isXmppConnected) {
         [self.serverRoster setupFetchRosterController];
         self.serverFriend = [[ServerFriend alloc] init];
+        self.serverConnect.msdelegate = self;
     } else {
         [self.serverConnect setupStream];
         [self.serverConnect connect];
@@ -75,12 +77,20 @@ NSInteger const ADD_FRIEND_VIEW_TAG = 101;
     // start fetching friend
     [self.serverRoster setupFetchRosterController];
     self.serverFriend = [[ServerFriend alloc] init];
+    self.serverConnect.msdelegate = self;
 }
 
 - (void)serverDidFinishFetchRosters:(NSArray *)users sections:(NSArray *)sections {
     [self.friendArray removeAllObjects];
     [self.friendArray addObjectsFromArray:users];
     [self.friendTableView reloadData];
+}
+
+#pragma mark - message delegate
+
+- (void)serverDidReceiveMessage:(NSString *)message fromUser:(NSString *)user {
+    NSLog(@"%@ , %@", message, user);
+    
 }
 
 #pragma mark - alertview delegate
@@ -109,6 +119,16 @@ NSInteger const ADD_FRIEND_VIEW_TAG = 101;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    FriendDetailViewController *detailViewController = [[FriendDetailViewController alloc] init];
+    NSUInteger index = indexPath.row;
+    XMPPUserCoreDataStorageObject *userObject = [self.friendArray objectAtIndex:index];
+    detailViewController.title = userObject.displayName;
+    detailViewController.toUser = userObject;
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    
+//    [self presentViewController:[[FriendDetailViewController alloc] init] animated:NO completion:^{
+//        
+//    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
