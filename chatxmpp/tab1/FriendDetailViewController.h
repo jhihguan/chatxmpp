@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XMPPFramework.h"
 
+@class UserData;
 @interface FriendDetailViewController : UIViewController
 
-@property (strong, nonatomic) XMPPUserCoreDataStorageObject *toUser;
+@property (strong, nonatomic) UserData *chatUser;
 
 @end

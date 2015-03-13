@@ -17,12 +17,16 @@ extern NSString *const kXMPPautoLogin;
 extern NSString *const kXMPPmyJID;
 extern NSString *const kXMPPmyPassword;
 extern NSString *const kXMPPmyServer;
+extern NSString *const kXMPPmyServerName;
 
 @interface UserLoginViewController ()<ServerConnectProtocol>
 @property (weak, nonatomic) IBOutlet UITextField *accountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *serverTextField;
+@property (weak, nonatomic) IBOutlet UITextField *serverNameField;
+@property (weak, nonatomic) IBOutlet UITextField *repasswordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (strong, nonatomic) ServerConnect *serverConnect;
 
 @end
@@ -32,6 +36,7 @@ extern NSString *const kXMPPmyServer;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.loginButton.backgroundColor = [UIColor blueColor];
+    self.registerButton.backgroundColor = [UIColor blueColor];
     self.serverConnect = [ServerConnect sharedConnect];
     self.serverConnect.delegate = self;
     [self.serverConnect setupStream];
@@ -62,11 +67,52 @@ extern NSString *const kXMPPmyServer;
 
 - (IBAction)loginAction:(id)sender {
     
+    if ([self checkUserInfo]) {
+        self.loginButton.enabled = NO;
+        
+        if (![self.serverConnect connect]) {
+            NSLog(@"connect error");
+            [self serverConnectionTimeout];
+        } else {
+            [SVProgressHUD show];
+        }
+    }
+    
+}
+
+- (IBAction)registerAction:(id)sender {
+    if (self.repasswordTextField.hidden) {
+        [self.repasswordTextField setHidden:NO];
+    } else {
+        if ([self.repasswordTextField.text isEqualToString:self.passwordTextField.text]) {
+            if ([self checkUserInfo]) {
+                // register
+                NSLog(@"register!!");
+                self.serverConnect.isRegisterUser = YES;
+                if (![self.serverConnect connect]) {
+                    NSLog(@"connect error");
+                    [self serverConnectionTimeout];
+                } else {
+                    [self.serverConnect registerUser];
+                    [SVProgressHUD show];
+                }
+//                [self.serverConnect registerUser];
+            }
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Password different" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+        
+    }
+}
+
+- (BOOL)checkUserInfo {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSString *account = self.accountTextField.text;
     NSString *password = self.passwordTextField.text;
     NSString *server = self.serverTextField.text;
+    NSString *serverName = self.serverNameField.text;
     NSString *errorMessage = @"";
     
     //check textfield format
@@ -85,20 +131,19 @@ extern NSString *const kXMPPmyServer;
     if (![errorMessage isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Requirement" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alertView show];
+        return NO;
     } else {
-        self.loginButton.enabled = NO;
         [userDefaults setValue:self.accountTextField.text forKey:kXMPPmyJID];
         [userDefaults setValue:self.passwordTextField.text forKey:kXMPPmyPassword];
         [userDefaults setValue:self.serverTextField.text forKey:kXMPPmyServer];
-        
-        if (![self.serverConnect connect]) {
-            NSLog(@"connect error");
-            [self serverConnectionTimeout];
+        if ([serverName isEqualToString:@""]) {
+            [userDefaults setValue:self.serverTextField.text forKey:kXMPPmyServerName];
         } else {
-            [SVProgressHUD show];
+            [userDefaults setValue:self.serverNameField.text forKey:kXMPPmyServerName];
         }
+        [userDefaults synchronize];
+        return YES;
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -9,6 +9,7 @@
 #import "FriendDetailViewController.h"
 #import "ServerConnect.h"
 #import "MessageData.h"
+#import "UserData.h"
 
 @interface FriendDetailViewController ()<UITextViewDelegate, ServerMessageProtocol, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
@@ -32,10 +33,9 @@
     [self registerForKeyboardNotifications];
     
     self.serverConnect = [ServerConnect sharedConnect];
-    self.serverConnect.talkJID = self.toUser.jidStr;
+    self.serverConnect.talkJID = self.chatUser.userJid;
     self.serverConnect.msdelegate = self;
     self.messageArray = [[NSMutableArray alloc] init];
-    NSLog(@"%@", self.toUser.jidStr);
 }
 
 - (IBAction)sendMessageAction:(id)sender {
@@ -45,14 +45,17 @@
     
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
     [message addAttributeWithName:@"type" stringValue:@"chat"];
-    [message addAttributeWithName:@"to" stringValue:self.toUser.jidStr];
+    [message addAttributeWithName:@"to" stringValue:self.chatUser.userJid];
     [message addChild:body];
     
     [self.serverConnect.xmppStream sendElement:message];
     MessageData *messageData = [[MessageData alloc] init];
     messageData.message = self.messageTextView.text;
-    messageData.toUser = self.toUser.jidStr;
+    messageData.toUser = self.chatUser.userJid;
     messageData.fromUser = @"me";
+    messageData.chatUser = self.chatUser.userJid;
+    self.chatUser.lastMessage = messageData.message;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"receiveMessage" object:self.chatUser];
     [self.messageArray addObject:messageData];
     self.messageTextView.text = @"";
 //    [self.messageTextView resignFirstResponder];
@@ -83,7 +86,7 @@
 - (void)serverDidReceiveMessageFromTalkUser:(NSString *)message {
     MessageData *messageData = [[MessageData alloc] init];
     messageData.message = message;
-    messageData.fromUser = self.toUser.jidStr;
+    messageData.fromUser = self.chatUser.userJid;
     messageData.toUser = @"me";
     [self.messageArray addObject:messageData];
     [self.tableView reloadData];
@@ -101,9 +104,9 @@
     NSUInteger index = indexPath.row;
     MessageData *data = [self.messageArray objectAtIndex:index];
     if ([data.fromUser isEqualToString:@"me"]) {
-        tableViewCell.textLabel.textAlignment = NSTextAlignmentLeft;
-    } else {
         tableViewCell.textLabel.textAlignment = NSTextAlignmentRight;
+    } else {
+        tableViewCell.textLabel.textAlignment = NSTextAlignmentLeft;
     }
     tableViewCell.textLabel.text = data.message;
     return tableViewCell;
@@ -129,22 +132,24 @@
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
-    CGRect textFrame = self.messageTextView.frame;
-    CGRect tableFrame = self.tableView.frame;
-    CGRect sendFrame = self.sendButton.frame;
     if (self.keyboardInset == 0) {
+        CGRect textFrame = self.messageTextView.frame;
+        CGRect tableFrame = self.tableView.frame;
+        CGRect sendFrame = self.sendButton.frame;
+        
         NSDictionary* info = [aNotification userInfo];
         CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
         CGFloat tabbarHeight = self.tabBarController.tabBar.frame.size.height;
         ;
         self.keyboardInset = tabbarHeight - kbSize.height;
+    
+        textFrame.origin = CGPointMake(textFrame.origin.x, textFrame.origin.y + self.keyboardInset);
+        sendFrame.origin = CGPointMake(sendFrame.origin.x, sendFrame.origin.y + self.keyboardInset);
+        tableFrame.size = CGSizeMake(tableFrame.size.width, tableFrame.size.height + self.keyboardInset);
+        self.messageTextView.frame = textFrame;
+        self.sendButton.frame = sendFrame;
+        self.tableView.frame = tableFrame;
     }
-    textFrame.origin = CGPointMake(textFrame.origin.x, textFrame.origin.y + self.keyboardInset);
-    sendFrame.origin = CGPointMake(sendFrame.origin.x, sendFrame.origin.y + self.keyboardInset);
-    tableFrame.size = CGSizeMake(tableFrame.size.width, tableFrame.size.height + self.keyboardInset);
-    self.messageTextView.frame = textFrame;
-    self.sendButton.frame = sendFrame;
-    self.tableView.frame = tableFrame;
 //    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
 //    scrollView.contentInset = contentInsets;
 //    scrollView.scrollIndicatorInsets = contentInsets;
@@ -162,15 +167,19 @@
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
-    CGRect textFrame = self.messageTextView.frame;
-    CGRect tableFrame = self.tableView.frame;
-    CGRect sendFrame = self.sendButton.frame;
-    textFrame.origin = CGPointMake(textFrame.origin.x, textFrame.origin.y - self.keyboardInset);
-    sendFrame.origin = CGPointMake(sendFrame.origin.x, sendFrame.origin.y - self.keyboardInset);
-    tableFrame.size = CGSizeMake(tableFrame.size.width, tableFrame.size.height - self.keyboardInset);
-    self.messageTextView.frame = textFrame;
-    self.sendButton.frame = sendFrame;
-    self.tableView.frame = tableFrame;
+    if (self.keyboardInset != 0) {
+        CGRect textFrame = self.messageTextView.frame;
+        CGRect tableFrame = self.tableView.frame;
+        CGRect sendFrame = self.sendButton.frame;
+        textFrame.origin = CGPointMake(textFrame.origin.x, textFrame.origin.y - self.keyboardInset);
+        sendFrame.origin = CGPointMake(sendFrame.origin.x, sendFrame.origin.y - self.keyboardInset);
+        tableFrame.size = CGSizeMake(tableFrame.size.width, tableFrame.size.height - self.keyboardInset);
+        self.messageTextView.frame = textFrame;
+        self.sendButton.frame = sendFrame;
+        self.tableView.frame = tableFrame;
+        self.keyboardInset = 0;
+    }
+    
 //    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
 //    scrollView.contentInset = contentInsets;
 //    scrollView.scrollIndicatorInsets = contentInsets;
@@ -180,7 +189,13 @@
     [super viewDidDisappear:animated];
     
     self.serverConnect.msdelegate = nil;
+    self.serverConnect.talkJID = @"";
     self.serverConnect = nil;
+    self.keyboardInset = 0;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

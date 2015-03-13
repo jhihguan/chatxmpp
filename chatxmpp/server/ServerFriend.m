@@ -10,6 +10,7 @@
 #import "ServerConnect.h"
 
 extern NSString *const kXMPPmyServer;
+extern NSString *const kXMPPmyServerName;
 @interface ServerFriend ()<XMPPStreamDelegate>
 
 @property (strong, nonatomic) XMPPRoster *xmppRoster;
@@ -27,7 +28,8 @@ extern NSString *const kXMPPmyServer;
 }
 
 - (void)addNewFriend:(NSString *)userId {
-    NSString *fullUserId = [NSString stringWithFormat:@"%@@%@", userId, [[NSUserDefaults standardUserDefaults] valueForKey:kXMPPmyServer]];
+    NSString *fullUserId = [NSString stringWithFormat:@"%@@%@", userId, kXMPPmyServerName];
+//    NSString *fullUserId = [NSString stringWithFormat:@"%@@%@", userId, [[NSUserDefaults standardUserDefaults] valueForKey:kXMPPmyServer]];
     [self.xmppRoster addUser:[XMPPJID jidWithString:fullUserId] withNickname:userId];
 }
 

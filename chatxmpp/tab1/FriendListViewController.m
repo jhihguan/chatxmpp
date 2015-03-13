@@ -12,15 +12,20 @@
 #import "ServerRosterFetch.h"
 #import "ServerFriend.h"
 #import "FriendDetailViewController.h"
+#import "GroupChatViewController.h"
+#import "MessageData.h"
+#import "UserData.h"
+#import "ServerRoom.h"
 
 extern NSString *const kXMPPautoLogin;
 NSInteger const ADD_FRIEND_VIEW_TAG = 101;
 
-@interface FriendListViewController ()<ServerConnectProtocol, ServerRosterProtocol, ServerMessageProtocol,UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface FriendListViewController ()<ServerConnectProtocol, ServerRosterProtocol, ServerMessageProtocol, ServerRoomProtocol,UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *friendTableView;
 @property (strong, nonatomic) ServerConnect *serverConnect;
 @property (strong, nonatomic) ServerRosterFetch *serverRoster;
 @property (strong, nonatomic) ServerFriend *serverFriend;
+@property (strong, nonatomic) ServerRoom *serverRoom;
 @property (strong, nonatomic) NSMutableArray *friendArray;
 
 @end
@@ -45,7 +50,7 @@ NSInteger const ADD_FRIEND_VIEW_TAG = 101;
 #pragma mark - action
 
 - (void)addFriendAction {
-    UIAlertView *addFriendAlertView = [[UIAlertView alloc] initWithTitle:@"New Friend" message:@"\nEnter Friend ID" delegate:self cancelButtonTitle:@"Add" otherButtonTitles:@"Cancel", nil];
+    UIAlertView *addFriendAlertView = [[UIAlertView alloc] initWithTitle:@"New Friend" message:@"\nEnter Friend ID" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"Add", @"Group", nil];
     addFriendAlertView.tag = ADD_FRIEND_VIEW_TAG;
     [addFriendAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [addFriendAlertView show];
@@ -98,7 +103,7 @@ NSInteger const ADD_FRIEND_VIEW_TAG = 101;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == ADD_FRIEND_VIEW_TAG) {
         switch (buttonIndex) {
-            case 0: {
+            case 1: {
                 NSString *userId = [alertView textFieldAtIndex:0].text;
                 if ([userId isEqualToString:@""]) {
                     [[[UIAlertView alloc] initWithTitle:@"Empty" message:@"User ID Can't be blank" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -108,11 +113,29 @@ NSInteger const ADD_FRIEND_VIEW_TAG = 101;
                 }
                 break;
             }
+            case 2: {
+                self.serverRoom = [[ServerRoom alloc] init];
+                self.serverRoom.delegate = self;
+                [self.serverRoom userJoinRoomWithRoomName:[alertView textFieldAtIndex:0].text];
+                break;
+            }
+            case 0: {
+                NSLog(@"000");
+                break;
+            }
             default:
                 break;
         }
     }
     
+}
+
+#pragma mark - room delegate
+
+- (void)userDidSuccessJoinRoom {
+    GroupChatViewController *groupChatViewController = [[GroupChatViewController alloc] init];
+    groupChatViewController.serverRoom = self.serverRoom;
+    [self.navigationController pushViewController:groupChatViewController animated:YES];
 }
 
 #pragma mark - tableview delegate
@@ -122,8 +145,11 @@ NSInteger const ADD_FRIEND_VIEW_TAG = 101;
     FriendDetailViewController *detailViewController = [[FriendDetailViewController alloc] init];
     NSUInteger index = indexPath.row;
     XMPPUserCoreDataStorageObject *userObject = [self.friendArray objectAtIndex:index];
-    detailViewController.title = userObject.displayName;
-    detailViewController.toUser = userObject;
+    detailViewController.title = userObject.nickname;
+    UserData *userData = [[UserData alloc] init];
+    userData.userName = userObject.nickname;
+    userData.userJid = userObject.jidStr;
+    detailViewController.chatUser = userData;
     [self.navigationController pushViewController:detailViewController animated:YES];
     
 //    [self presentViewController:[[FriendDetailViewController alloc] init] animated:NO completion:^{

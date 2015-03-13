@@ -13,12 +13,14 @@
 //#import "XMPPRosterCoreDataStorage.h"
 //#import "XMPPReconnect.h"
 
+@class MessageData;
 @protocol ServerConnectProtocol;
 @protocol ServerMessageProtocol;
 @interface ServerConnect : NSObject
 
 - (void)setupStream;
 - (void)shutdownStream;
+- (void)registerUser;
 - (BOOL)connect;
 - (void)disconnect;
 - (void)clearLoginData;
@@ -31,6 +33,7 @@
 @property (nonatomic, strong) id<ServerMessageProtocol> msdelegate;
 @property (nonatomic) BOOL isXmppConnected;
 @property (nonatomic, strong) NSString *talkJID;
+@property (nonatomic) BOOL isRegisterUser;
 
 // object
 
@@ -61,5 +64,7 @@
 @optional
 - (void)serverDidReceiveMessage:(NSString *)message fromUser:(NSString *)user;
 - (void)serverDidReceiveMessageFromTalkUser:(NSString *)message;
+- (void)serverDidReceiveMessageData:(MessageData *)messageData;
+- (void)serverDidReceiveRoomMessage:(NSString *)message fromUser:(NSString *)user;
 
 @end
